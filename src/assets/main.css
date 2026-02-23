@@ -1,0 +1,36 @@
+@import './base.css';
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+}
+
+@theme {
+  --color-background: white;
+  /* --color-background-soft: var(--color-white-soft);
+  --color-background-mute: var(--color-white-mute); */
+
+  --color-border: border-blue-500;
+  /* --color-border-hover: var(--color-border-hover); */
+
+  --color-heading: white;
+  --color-text: white;
+  --ui-text-highlighted: text-white;
+}
