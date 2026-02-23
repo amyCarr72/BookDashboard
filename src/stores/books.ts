@@ -31,6 +31,7 @@ export const useBooksStore = defineStore('books', () => {
     try {
       const fetchedBooks = await fetchBooks()
       books.value = fetchedBooks
+      selectedBook.value = {} as Book
     } catch (error) {
       console.error('Error fetching books:', error)
     }
@@ -64,9 +65,9 @@ export const useBooksStore = defineStore('books', () => {
     }
   }
 
-  const updateBookById = async (id: number, book: Book) => {
+  const updateBookById = async (book: Book) => {
     try {
-      await updateBook(id, book)
+      await updateBook(book)
       refreshBooks()
     } catch (error) {
       console.error('Error updating book:', error)

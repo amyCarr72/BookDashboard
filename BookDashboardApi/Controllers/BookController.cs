@@ -56,7 +56,7 @@ namespace BookDashboardApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Route("updateBook/{id}")]
-        public async Task<IActionResult> PutBook(Guid id, Book book)
+        public async Task<IActionResult> PutBook(Book book)
         {
             if(BookCommentHorrible(book.Comments))
             {

@@ -20,31 +20,7 @@
     </template>
   </UModal>
 
-  <UModal v-model:open="isEditModalOpen" title="Edit Book">
-    <template #body>
-      <UForm :state="tempBookEdit" class="flex flex-col gap-4">
-        <UFormField label="Book Title" name="title">
-          <UInput v-model="tempBookEdit.title" disabled />
-        </UFormField>
-        <UFormField label="Author Information" name="author">
-          <UInput v-model="tempBookEdit.author" disabled />
-        </UFormField>
-        <UFormField label="ISBN Information" name="ISBN">
-          <UInput v-model="tempBookEdit.ISBN" disabled />
-        </UFormField>
-        <UFormField label="Comments" name="comments">
-          <UTextarea v-model="tempBookEdit.comments" placeholder="Brief comments on the book..." />
-        </UFormField>
-        <UFormField label="Rating" name="rating">
-          <USlider v-model="tempBookEdit.rating" :min="0" :max="5" />
-        </UFormField>
-      </UForm>
-    </template>
-    <template #footer>
-      <UButton variant="outline" color="primary" @click="isEditModalOpen = false">Cancel</UButton>
-      <UButton variant="outline" color="neutral" @click="isEditModalOpen = false">Save</UButton>
-    </template>
-  </UModal>
+  <EditBookModal v-model:open="isEditModalOpen" @submit="isEditModalOpen = !isEditModalOpen" />
 
   <UModal v-model:open="isViewModalOpen" title="Book Details">
     <template #body>
@@ -75,20 +51,14 @@
 </template>
 <script setup lang="ts">
 import { useBooksStore } from '@/stores/books'
-import { computed, ref, reactive } from 'vue'
+import EditBookModal from '@/components/EditBookModal.vue'
+import { computed, ref } from 'vue'
 
 const booksStore = useBooksStore()
 const books = computed(() => booksStore.books)
 
 const selectedBook = computed(() => booksStore.selectedBook)
 
-const tempBookEdit = reactive({
-  title: selectedBook.value?.title || '',
-  author: selectedBook.value?.author || '',
-  ISBN: selectedBook.value?.ISBN || '',
-  comments: selectedBook.value?.comments || '',
-  rating: selectedBook.value?.rating || 0,
-})
 // Modals
 const isEditModalOpen = ref(false)
 const isViewModalOpen = ref(false)

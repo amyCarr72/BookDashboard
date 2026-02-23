@@ -42,9 +42,10 @@ export const createBook = async (book: Book) => {
   }
 }
 
-export const updateBook = async (id: number, book: Book) => {
+export const updateBook = async (book: Book) => {
   try {
     const apiBook = {
+      Id: book.id,
       title: book.title,
       isbn: book.ISBN,
       author: book.author,
@@ -53,10 +54,10 @@ export const updateBook = async (id: number, book: Book) => {
       noteStatus: book.notes,
       coverImageUrl: book.coverImageUrl,
     }
-    const response = await axios.put(`${API_BASE_URL}/books/${id}`, apiBook)
+    const response = await axios.put(`${API_BASE_URL}/books/${apiBook.Id}`, apiBook)
     return response.data
   } catch (error) {
-    console.error(`Error updating book with id ${id}:`, error)
+    console.error(`Error updating book ${book.title}`, error)
     throw error
   }
 }
