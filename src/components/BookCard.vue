@@ -58,18 +58,18 @@ const emit = defineEmits(['edit-book', 'open-book', 'delete-book'])
 
 const booksStore = useBooksStore()
 const openEditBook = (book: Book) => {
-  booksStore.selectedBook = book
+  booksStore.setSelectedBook(book)
   // Logic to open the edit book modal or navigate to the edit page
   emit('edit-book')
 }
 const openBook = (book: Book) => {
   // Logic to open the book details view
-  booksStore.selectedBook = book
+  booksStore.setSelectedBook(book)
   emit('open-book')
 }
 const deleteBook = (book: Book) => {
   // Logic to delete the book from the collection
-  booksStore.selectedBook = book
+  booksStore.setSelectedBook(book)
   emit('delete-book')
 }
 </script>

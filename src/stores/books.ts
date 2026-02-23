@@ -8,7 +8,10 @@ export const useBooksStore = defineStore('books', () => {
 
   const books = ref<Book[]>([])
 
-  const selectedBook = ref<Book | null>(null)
+  const selectedBook = ref<Book>({} as Book)
+  const setSelectedBook = (book: Book) => {
+    selectedBook.value = book
+  }
 
   const getBooks = computed(() => {
     return books.value
@@ -79,6 +82,7 @@ export const useBooksStore = defineStore('books', () => {
   return {
     books,
     selectedBook,
+    setSelectedBook,
     getBooks,
     init,
     refreshBooks,

@@ -12,15 +12,16 @@
     </div>
   </PageHeader>
 
-  <UModal v-model:open="isDeleteModalOpen" title="Are you sure?">
-    <template #body> Are you sure you want to delete this book/review? </template>
-    <template #footer>
-      <UButton variant="outline" color="primary" @click="isDeleteModalOpen = false">Cancel</UButton>
-      <UButton variant="outline" color="neutral" @click="onDeleteBook">Delete</UButton>
-    </template>
-  </UModal>
+  <DeleteBookModal
+    v-model:open="isDeleteModalOpen"
+    @submit="isDeleteModalOpen = !isDeleteModalOpen"
+  />
   <ViewBookModal v-model:open="isViewModalOpen" />
-  <EditBookModal v-model:open="isEditModalOpen" @submit="isEditModalOpen = !isEditModalOpen" />
+  <EditBookModal
+    v-model:open="isEditModalOpen"
+    @submit="isEditModalOpen = !isEditModalOpen"
+    :book="selectedBook"
+  />
 </template>
 <script setup lang="ts">
 import { useBooksStore } from '@/stores/books'
@@ -30,18 +31,10 @@ import ViewBookModal from '@/components/ViewBookModal.vue'
 
 const booksStore = useBooksStore()
 const books = computed(() => booksStore.books)
-
 const selectedBook = computed(() => booksStore.selectedBook)
 
 // Modals
 const isEditModalOpen = ref(false)
 const isViewModalOpen = ref(false)
 const isDeleteModalOpen = ref(false)
-
-const onDeleteBook = () => {
-  if (selectedBook.value) {
-    booksStore.deleteBookById(selectedBook.value?.id)
-  }
-  isDeleteModalOpen.value = false
-}
 </script>

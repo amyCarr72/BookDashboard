@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { useBooksStore } from '@/stores/books'
 import type { Book } from '@/stores/types'
-import { reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 
 const booksStore = useBooksStore()
 
@@ -36,7 +36,7 @@ const emit = defineEmits(['submit'])
 
 const selectedBook = computed(() => booksStore.selectedBook)
 
-const state = reactive({
+const state = ref({
   title: selectedBook.value?.title,
   author: selectedBook.value?.author,
   ISBN: selectedBook.value?.ISBN,
@@ -45,11 +45,11 @@ const state = reactive({
 })
 
 const onSaveEdit = async () => {
-  if (selectedBook.value && state.comments && state.rating) {
+  if (selectedBook.value && state.value.comments && state.value.rating) {
     const updatedBook: Book = {
       ...selectedBook.value,
-      comments: state.comments,
-      rating: state.rating,
+      comments: state.value.comments,
+      rating: state.value.rating,
     }
     await booksStore.updateBookById(updatedBook)
   }

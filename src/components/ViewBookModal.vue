@@ -19,8 +19,7 @@
           {{ selectedBook?.rating }}/5
         </div>
         <p class="text-sm text-gray-700">
-          This is a brief description of the book. It provides an overview of the plot, characters,
-          and themes.
+          {{ selectedBook?.description }}
         </p>
       </div>
     </template>

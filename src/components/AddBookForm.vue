@@ -19,7 +19,7 @@
         </UFormField>
 
         <UFormField label="Rating">
-          <USlider v-model="form.rating" placeholder="What is your rating" />
+          <USlider :min="0" :max="5" v-model="form.rating" placeholder="What is your rating" />
         </UFormField>
 
         <UFormField label="Comments">
@@ -59,7 +59,6 @@ const form: Reactive<Book> = reactive({
 const booksStore = useBooksStore()
 const handleSubmit = async () => {
   // Add logic to handle form submission, e.g., API call
-  console.log('adding')
   await booksStore.addBook(form)
   emit('submit')
 }
