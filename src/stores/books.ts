@@ -33,7 +33,6 @@ export const useBooksStore = defineStore('books', () => {
     try {
       const fetchedBooks = await fetchBooks()
       books.value = fetchedBooks
-      selectedBook.value = {} as Book
     } catch (error) {
       return error
     }
