@@ -11,19 +11,15 @@
         </UFormField>
 
         <UFormField label="ISBN" required>
-          <UInput v-model="form.ISBN" placeholder="Enter ISBN" />
+          <UInput v-model="form.isbn" placeholder="Enter ISBN" />
         </UFormField>
 
-        <UFormField label="Description">
-          <UTextarea v-model="form.description" placeholder="Enter book description" />
+        <UFormField label="Comments">
+          <UTextarea v-model="form.comments" placeholder="Comments..." />
         </UFormField>
 
         <UFormField label="Rating">
           <USlider :min="0" :max="5" v-model="form.rating" placeholder="What is your rating" />
-        </UFormField>
-
-        <UFormField label="Comments">
-          <UInput v-model="form.comments" placeholder="Any comments?" />
         </UFormField>
       </UForm>
     </template>
@@ -48,8 +44,7 @@ const form: Reactive<Book> = reactive({
   id: 0,
   title: '',
   author: '',
-  ISBN: '',
-  description: '',
+  isbn: '',
   rating: 0,
   comments: '',
   coverImageUrl: '',

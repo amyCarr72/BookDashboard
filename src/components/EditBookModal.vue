@@ -9,7 +9,7 @@
           <UInput v-model="state.author" disabled />
         </UFormField>
         <UFormField label="ISBN Information" name="ISBN">
-          <UInput v-model="state.ISBN" disabled />
+          <UInput v-model="state.isbn" disabled />
         </UFormField>
         <UFormField label="Comments" name="comments">
           <UTextarea v-model="state.comments" placeholder="Brief comments on the book..." />
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { useBooksStore } from '@/stores/books'
 import type { Book } from '@/stores/types'
-import { ref, computed } from 'vue'
+import { reactive, computed, watch } from 'vue'
 
 const booksStore = useBooksStore()
 
@@ -36,20 +36,34 @@ const emit = defineEmits(['submit'])
 
 const selectedBook = computed(() => booksStore.selectedBook)
 
-const state = ref({
+const state = reactive({
   title: selectedBook.value?.title,
   author: selectedBook.value?.author,
-  ISBN: selectedBook.value?.ISBN,
+  isbn: selectedBook.value?.isbn,
   comments: selectedBook.value?.comments,
   rating: selectedBook.value?.rating,
 })
 
+// Watch for changes in selectedBook and update state accordingly
+watch(
+  () => selectedBook.value,
+  (newSelectedBook) => {
+    if (newSelectedBook) {
+      state.title = newSelectedBook.title
+      state.author = newSelectedBook.author
+      state.isbn = newSelectedBook.isbn
+      state.comments = newSelectedBook.comments
+      state.rating = newSelectedBook.rating
+    }
+  },
+)
+
 const onSaveEdit = async () => {
-  if (selectedBook.value && state.value.comments && state.value.rating) {
+  if (selectedBook.value && state.comments && state.rating) {
     const updatedBook: Book = {
       ...selectedBook.value,
-      comments: state.value.comments,
-      rating: state.value.rating,
+      comments: state.comments,
+      rating: state.rating,
     }
     await booksStore.updateBookById(updatedBook)
   }

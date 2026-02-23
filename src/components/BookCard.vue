@@ -5,7 +5,7 @@
       <div>
         <h2 class="text-lg font-semibold">{{ book.title }}</h2>
         <p v-if="book.author" class="text-sm text-gray-500">{{ book.author }}</p>
-        <p v-if="book.ISBN" class="text-sm text-gray-500">ISBN: {{ book.ISBN }}</p>
+        <p v-if="book.isbn" class="text-sm text-gray-500">ISBN: {{ book.isbn }}</p>
       </div>
     </div>
     <div class="p-4 flex flex-row gap-2 items-center">

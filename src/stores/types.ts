@@ -1,9 +1,8 @@
 export type Book = {
   id: number
-  ISBN: string
+  isbn: string
   title: string
   author: string
-  description: string
   coverImageUrl: string
   rating: number
   comments: string

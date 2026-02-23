@@ -19,7 +19,7 @@
           {{ selectedBook?.rating }}/5
         </div>
         <p class="text-sm text-gray-700">
-          {{ selectedBook?.description }}
+          {{ selectedBook?.comments }}
         </p>
       </div>
     </template>

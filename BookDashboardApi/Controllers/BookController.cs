@@ -56,7 +56,7 @@ namespace BookDashboardApi.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Route("updateBook/{id}")]
-        public async Task<IActionResult> PutBook(Book book)
+        public async Task<IActionResult> PutBook(Guid id, Book book)
         {
             if(BookCommentHorrible(book.Comments))
             {
@@ -71,7 +71,7 @@ namespace BookDashboardApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookExistsId(book.Id))
+                if (!BookExistsId(id))
                 {
                     return NotFound("This book does not exist.");
                 }

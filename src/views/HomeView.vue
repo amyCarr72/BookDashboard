@@ -20,7 +20,7 @@
   <EditBookModal
     v-model:open="isEditModalOpen"
     @submit="isEditModalOpen = !isEditModalOpen"
-    :book="selectedBook"
+    :selected-book="selectedBook"
   />
 </template>
 <script setup lang="ts">
