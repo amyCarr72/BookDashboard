@@ -4,6 +4,8 @@ import type { Book } from './types'
 import { fetchBooks, addInitalBooks, createBook, updateBook, deleteBook } from '@/api/bookApi'
 
 export const useBooksStore = defineStore('books', () => {
+  const toast = useToast()
+
   const books = ref<Book[]>([])
 
   const selectedBook = ref<Book | null>(null)
@@ -33,7 +35,7 @@ export const useBooksStore = defineStore('books', () => {
       books.value = fetchedBooks
       selectedBook.value = {} as Book
     } catch (error) {
-      console.error('Error fetching books:', error)
+      return error
     }
   }
 
@@ -43,7 +45,7 @@ export const useBooksStore = defineStore('books', () => {
       await addInitalBooks()
       refreshBooks()
     } catch (error) {
-      console.error('Error fetching Initial books:', error)
+      return error
     }
   }
 
@@ -52,7 +54,8 @@ export const useBooksStore = defineStore('books', () => {
       await createBook(book)
       refreshBooks()
     } catch (error) {
-      console.error('Error adding book:', error)
+      console.log(error)
+      toast.add({ title: error as string })
     }
   }
 
@@ -61,7 +64,7 @@ export const useBooksStore = defineStore('books', () => {
       await deleteBook(id)
       refreshBooks()
     } catch (error) {
-      console.error('Error deleting book:', error)
+      return error
     }
   }
 
@@ -70,7 +73,7 @@ export const useBooksStore = defineStore('books', () => {
       await updateBook(book)
       refreshBooks()
     } catch (error) {
-      console.error('Error updating book:', error)
+      return error
     }
   }
 

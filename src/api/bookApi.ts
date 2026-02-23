@@ -9,7 +9,7 @@ export const fetchBooks = async () => {
     return response.data
   } catch (error) {
     console.error('Error fetching books:', error)
-    throw error
+    return error
   }
 }
 
@@ -19,7 +19,7 @@ export const fetchBookById = async (id: number) => {
     return response.data
   } catch (error) {
     console.error(`Error fetching book with id ${id}:`, error)
-    throw error
+    return error
   }
 }
 
@@ -38,7 +38,7 @@ export const createBook = async (book: Book) => {
     return response.data
   } catch (error) {
     console.error('Error creating book:', error)
-    throw error
+    return error
   }
 }
 
@@ -58,7 +58,7 @@ export const updateBook = async (book: Book) => {
     return response.data
   } catch (error) {
     console.error(`Error updating book ${book.title}`, error)
-    throw error
+    return error
   }
 }
 
@@ -68,7 +68,7 @@ export const deleteBook = async (id: number) => {
     return response.data
   } catch (error) {
     console.error(`Error deleting book with id ${id}:`, error)
-    throw error
+    return error
   }
 }
 
@@ -79,6 +79,6 @@ export const addInitalBooks = async () => {
     return response.data
   } catch (error) {
     console.error('Error adding initial books:', error)
-    throw error
+    return error
   }
 }

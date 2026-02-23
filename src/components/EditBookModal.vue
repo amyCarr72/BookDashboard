@@ -20,7 +20,7 @@
       </UForm>
     </template>
     <template #footer>
-      <UButton variant="outline" color="primary" @click="isEditModalOpen = false">Cancel</UButton>
+      <UButton variant="outline" color="primary" @click="emit('submit')">Cancel</UButton>
       <UButton variant="outline" color="neutral" @click="onSaveEdit()">Save</UButton>
     </template>
   </UModal>
@@ -28,27 +28,30 @@
 <script setup lang="ts">
 import { useBooksStore } from '@/stores/books'
 import type { Book } from '@/stores/types'
-import { reactive, ref } from 'vue'
+import { reactive, computed } from 'vue'
 
 const booksStore = useBooksStore()
 
 const emit = defineEmits(['submit'])
 
-const isEditModalOpen = ref(false)
-const { selectedBook } = booksStore
+const selectedBook = computed(() => booksStore.selectedBook)
 
 const state = reactive({
-  title: selectedBook?.title || '',
-  author: selectedBook?.author || '',
-  ISBN: selectedBook?.ISBN || '',
-  comments: selectedBook?.comments || '',
-  rating: selectedBook?.rating || 0,
+  title: selectedBook.value?.title,
+  author: selectedBook.value?.author,
+  ISBN: selectedBook.value?.ISBN,
+  comments: selectedBook.value?.comments,
+  rating: selectedBook.value?.rating,
 })
 
-const onSaveEdit = () => {
-  if (selectedBook) {
-    const updatedBook: Book = { ...selectedBook, comments: state.comments, rating: state.rating }
-    booksStore.updateBookById(updatedBook)
+const onSaveEdit = async () => {
+  if (selectedBook.value && state.comments && state.rating) {
+    const updatedBook: Book = {
+      ...selectedBook.value,
+      comments: state.comments,
+      rating: state.rating,
+    }
+    await booksStore.updateBookById(updatedBook)
   }
   emit('submit')
 }
