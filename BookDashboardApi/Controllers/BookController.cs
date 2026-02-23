@@ -117,7 +117,7 @@ namespace BookDashboardApi.Controllers
         // DELETE: api/Book/5
         [HttpDelete]
         [Route("deleteBook/{id}")]
-        public async Task<IActionResult> DeleteBook(long id)
+        public async Task<IActionResult> DeleteBook(Guid id)
         {
             var book = await _context.Book.FindAsync(id);
             if (book == null)

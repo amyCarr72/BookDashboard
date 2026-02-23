@@ -16,7 +16,7 @@
     <template #body> Are you sure you want to delete this book/review? </template>
     <template #footer>
       <UButton variant="outline" color="primary" @click="isDeleteModalOpen = false">Cancel</UButton>
-      <UButton variant="outline" color="neutral" @click="isDeleteModalOpen = false">Delete</UButton>
+      <UButton variant="outline" color="neutral" @click="onDeleteBook">Delete</UButton>
     </template>
   </UModal>
 
@@ -93,4 +93,11 @@ const tempBookEdit = reactive({
 const isEditModalOpen = ref(false)
 const isViewModalOpen = ref(false)
 const isDeleteModalOpen = ref(false)
+
+const onDeleteBook = () => {
+  if (selectedBook.value) {
+    booksStore.deleteBookById(selectedBook.value?.id)
+  }
+  isDeleteModalOpen.value = false
+}
 </script>
