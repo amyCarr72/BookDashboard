@@ -3,9 +3,9 @@
     <div class="p-4 flex items-center mb-2 gap-4">
       <UIcon name="streamline:open-book-solid" class="size-6 text-amber-300" />
       <div>
-        <h2 class="text-lg font-semibold">{{ title }}</h2>
-        <p v-if="author" class="text-sm text-gray-500">{{ author }}</p>
-        <p v-if="ISBN" class="text-sm text-gray-500">ISBN: {{ ISBN }}</p>
+        <h2 class="text-lg font-semibold">{{ book.title }}</h2>
+        <p v-if="book.author" class="text-sm text-gray-500">{{ book.author }}</p>
+        <p v-if="book.ISBN" class="text-sm text-gray-500">ISBN: {{ book.ISBN }}</p>
       </div>
     </div>
     <div class="p-4 flex flex-row gap-2 items-center">
@@ -15,36 +15,61 @@
           :key="num"
           name="material-symbols:star"
           class="size-4"
-          :class="{ 'text-gray-500': num > rating, 'text-yellow-400': num <= rating }"
+          :class="{ 'text-gray-500': num > book.rating, 'text-yellow-400': num <= book.rating }"
         />
-        {{ rating }}/5
+        {{ book.rating }}/5
       </div>
-      <UButton variant="outline" color="neutral" :icon="'material-symbols:edit'" size="xs" />
-      <UButton variant="outline" color="neutral" :icon="'material-symbols:visibility'" size="xs" />
-      <UButton variant="outline" color="neutral" :icon="'material-symbols:delete'" size="xs" />
+      <UButton
+        variant="outline"
+        color="neutral"
+        :icon="'material-symbols:edit'"
+        size="xs"
+        @click="openEditBook(book)"
+      />
+      <UButton
+        variant="outline"
+        color="neutral"
+        :icon="'material-symbols:visibility'"
+        size="xs"
+        @click="openBook(book)"
+      />
+      <UButton
+        variant="outline"
+        color="neutral"
+        :icon="'material-symbols:delete'"
+        size="xs"
+        @click="deleteBook(book)"
+      />
     </div>
   </div>
 </template>
 <script setup lang="ts">
-const { title, author, ISBN, rating } = defineProps({
-  title: {
-    type: String,
+import type { Book } from '@/stores/types'
+import { useBooksStore } from '@/stores/books'
+
+const { book } = defineProps({
+  book: {
+    type: Object as () => Book,
     required: true,
   },
-  author: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  ISBN: {
-    type: String,
-    required: false,
-    default: '',
-  },
-  rating: {
-    type: Number,
-    required: false,
-    default: 0,
-  },
 })
+
+const emit = defineEmits(['edit-book', 'open-book', 'delete-book'])
+
+const booksStore = useBooksStore()
+const openEditBook = (book: Book) => {
+  booksStore.selectedBook = book
+  // Logic to open the edit book modal or navigate to the edit page
+  emit('edit-book')
+}
+const openBook = (book: Book) => {
+  // Logic to open the book details view
+  booksStore.selectedBook = book
+  emit('open-book')
+}
+const deleteBook = (book: Book) => {
+  // Logic to delete the book from the collection
+  booksStore.selectedBook = book
+  emit('delete-book')
+}
 </script>

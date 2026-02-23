@@ -52,6 +52,8 @@ export const useBooksStore = defineStore('books', () => {
       notes: 'Need to analyze the character of Elizabeth Bennet for my literature essay.',
     },
   ])
+
+  const selectedBook = ref<Book | null>(null)
   const getBooks = computed(() => {
     return books.value
   })
@@ -79,6 +81,7 @@ export const useBooksStore = defineStore('books', () => {
 
   return {
     books,
+    selectedBook,
     getBooks,
     init,
     getSearchedBookResults,
