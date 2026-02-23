@@ -7,12 +7,25 @@ builder.Services.AddDbContext<BookContext>(opt =>
 
 // Add services to the container.
 
+// Add CORS services
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowSpecificOrigin", policy => {
+        policy.WithOrigins("http://localhost:8080") // Replace with your domain
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseCors("AllowSpecificOrigin");
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -6,9 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookDashboardApi.Models;
+using Microsoft.AspNetCore.Cors;
+using YamlDotNet.Core.Tokens;
 
 namespace BookDashboardApi.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -127,10 +130,19 @@ namespace BookDashboardApi.Controllers
         {
             var initialBooks = InitialBooks as List<Book>;
 
-            _context.Book.AddRange(initialBooks);
-            await _context.SaveChangesAsync();
+            if (initialBooks == null)
+            {
+                return BadRequest("Initial books list is null.");
+            }
+            try {
+                await _context.Book.AddRangeAsync(initialBooks);
+                await _context.SaveChangesAsync();
+                return Ok("Initial books added successfully.");
 
-            return Ok("Initial books added successfully.");
+            } catch(DbUpdateConcurrencyException) {
+                return BadRequest("Could not initialise books.");
+            };
+
         }
 
 
