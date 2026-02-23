@@ -19,7 +19,9 @@
             </div>
           </template>
         </UDashboardSearch>
-        <slot />
+        <UContainer class="lg:px-48">
+          <slot />
+        </UContainer>
       </UDashboardContent>
     </HeaderNav>
   </UDashboardGroup>

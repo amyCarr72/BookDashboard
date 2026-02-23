@@ -47,7 +47,7 @@ export default defineConfig({
                 link: 'bg-blue-500 py-3',
               },
               false: {
-                item: 'text-white ',
+                item: 'text-white',
                 link: 'bg-blue-600 py-3',
               },
             },

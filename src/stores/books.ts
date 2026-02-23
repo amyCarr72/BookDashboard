@@ -6,6 +6,7 @@ export const useBooksStore = defineStore('books', () => {
   const books = ref<Book[]>([
     {
       id: 1,
+      ISBN: '978-0743273565',
       title: 'The Great Gatsby',
       author: 'F. Scott Fitzgerald',
       description:
@@ -17,6 +18,7 @@ export const useBooksStore = defineStore('books', () => {
     },
     {
       id: 2,
+      ISBN: '978-0061120084',
       title: 'To Kill a Mockingbird',
       author: 'Harper Lee',
       description: 'A novel about the serious issues of racial inequality',
@@ -27,6 +29,7 @@ export const useBooksStore = defineStore('books', () => {
     },
     {
       id: 3,
+      ISBN: '978-0451524935',
       title: '1984',
       author: 'George Orwell',
       description:
@@ -38,6 +41,7 @@ export const useBooksStore = defineStore('books', () => {
     },
     {
       id: 4,
+      ISBN: '978-0141439518',
       title: 'Pride and Prejudice',
       author: 'Jane Austen',
       description:
