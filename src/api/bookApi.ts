@@ -25,7 +25,16 @@ export const fetchBookById = async (id: number) => {
 
 export const createBook = async (book: Book) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/addBook`, book)
+    const apiBook = {
+      title: book.title,
+      isbn: book.ISBN,
+      author: book.author,
+      rating: book.rating,
+      comments: book.comments,
+      noteStatus: book.notes,
+      coverImageUrl: book.coverImageUrl,
+    }
+    const response = await axios.post(`${API_BASE_URL}/addBook`, apiBook)
     return response.data
   } catch (error) {
     console.error('Error creating book:', error)
@@ -35,7 +44,16 @@ export const createBook = async (book: Book) => {
 
 export const updateBook = async (id: number, book: Book) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/books/${id}`, book)
+    const apiBook = {
+      title: book.title,
+      isbn: book.ISBN,
+      author: book.author,
+      rating: book.rating,
+      comments: book.comments,
+      noteStatus: book.notes,
+      coverImageUrl: book.coverImageUrl,
+    }
+    const response = await axios.put(`${API_BASE_URL}/books/${id}`, apiBook)
     return response.data
   } catch (error) {
     console.error(`Error updating book with id ${id}:`, error)

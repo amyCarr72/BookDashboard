@@ -27,7 +27,11 @@ namespace BookDashboardApi.Controllers
         [Route("getBooks")]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
+            try {
             return await _context.Book.ToListAsync();
+            } catch {
+                return BadRequest("Cannot fetch books");
+            }
         }
 
         // GET: api/Book/5
@@ -35,14 +39,17 @@ namespace BookDashboardApi.Controllers
         [Route("getBook/{id}")]
         public async Task<ActionResult<Book>> GetBooks(long id)
         {
+            try {
             var book = await _context.Book.FindAsync(id);
-
             if (book == null)
             {
                 return NotFound();
             }
-
             return book;
+            } catch {
+                return BadRequest("Could not find this book");
+            }
+
         }
 
         // PUT: api/Book/5
@@ -118,10 +125,14 @@ namespace BookDashboardApi.Controllers
                 return NotFound();
             }
 
+            try {
             _context.Book.Remove(book);
             await _context.SaveChangesAsync();
 
             return Ok("Book deleted successfully.");
+            } catch {
+                return BadRequest("Could not delete the book");
+            }
         }
 
         [HttpPost]

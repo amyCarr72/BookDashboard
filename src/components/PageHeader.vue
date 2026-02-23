@@ -3,7 +3,12 @@
     <UPageHeader :title="title" :description="description">
       <template #links>
         <slot name="links">
-          <UButton variant="outline" color="primary" :icon="'material-symbols:add'">
+          <UButton
+            variant="outline"
+            color="primary"
+            :icon="'material-symbols:add'"
+            @click="openAddBookModal = !openAddBookModal"
+          >
             Add Book
           </UButton>
         </slot>
@@ -11,10 +16,12 @@
     </UPageHeader>
     <UPageBody>
       <slot />
+      <AddBookForm v-model:open="openAddBookModal" @submit="openAddBookModal = !openAddBookModal" />
     </UPageBody>
   </UPage>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue'
 const { title, description } = defineProps({
   title: {
     type: String,
@@ -26,4 +33,6 @@ const { title, description } = defineProps({
     default: '',
   },
 })
+
+const openAddBookModal = ref(false)
 </script>

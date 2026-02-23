@@ -28,10 +28,8 @@ export const useBooksStore = defineStore('books', () => {
 
   const refreshBooks = async () => {
     //fetch the books here after adjustments and set the books ref
-    console.log('in refresh')
     try {
       const fetchedBooks = await fetchBooks()
-      console.log('books: ', fetchedBooks)
       books.value = fetchedBooks
     } catch (error) {
       console.error('Error fetching books:', error)
